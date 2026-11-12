@@ -448,6 +448,18 @@ def load_parameters(query: str = "default", algorithm: str = "cdrec", dataset: s
     elif algorithm == "colors_blacks":
         colors = config[algorithm]['plot']
         return colors
+    elif algorithm == "test_imp":
+        mean = bool(config[algorithm]['mean'])
+        fix_value = float(config[algorithm]['fix_value'])
+        return (mean, fix_value)
+    elif algorithm == "gpvae":
+            model_type = str(config[algorithm]['model_type'])
+            seq_len = int(config[algorithm]['seq_len'])
+            batch_size = int(config[algorithm]['batch_size'])
+            epochs = int(config[algorithm]['epochs'])
+            sliding_windows = int(config[algorithm]['sliding_windows'])
+            seed = int(config[algorithm]['seed'])
+            return (model_type, seq_len, batch_size, epochs, sliding_windows, seed)
     elif algorithm == "other":
         return config
 
@@ -574,7 +586,11 @@ def config_impute_algorithm(incomp_data, algorithm, verbose=True):
         imputer = Imputation.DeepLearning.TimesNet(incomp_data)
     elif alg == "csdi":
         imputer = Imputation.DeepLearning.CSDI(incomp_data)
-
+    elif alg == "test_imp":
+        imputer = Imputation.Statistics.TestImp(incomp_data)
+    elif alg == "gpvae":
+        imputer = Imputation.DeepLearning.GPVAE(incomp_data)
+    
     # your own implementation #contributing
     #
     #elif alg == "your_algo_name":
@@ -867,6 +883,20 @@ def save_optimization(optimal_params, algorithm="cdrec", dataset="", optimizer="
             "sliding_windows": int(optimal_params[3]),
             "n_head": int(optimal_params[4]),
             "num_workers": int(optimal_params[5])
+        }
+    elif algorithm == "test_imp":
+        params_to_save = {
+            "mean": bool(optimal_params[0]),
+            "fix_value": float(optimal_params[1])
+        }
+    elif algorithm == "gpvae" or algorithm == "GPVAE" or algorithm == "gp-vae" or algorithm == "GP-VAE":
+        params_to_save = {
+            "model_type": str(optimal_params[0]),
+            "seq_len": int(optimal_params[1]),
+            "batch_size": float(optimal_params[2]),
+            "epochs": int(optimal_params[3]),
+            "sliding_windows": int(optimal_params[4]),
+            "seed": int(optimal_params[5])
         }
 
     # Your own optimal save parameters #contributing

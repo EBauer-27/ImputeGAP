@@ -1,0 +1,12 @@
+2026-11-08 20:50:11 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.05%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-08 20:50:11 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.1%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-08 20:50:11 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.2%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-08 20:50:11 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.4%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-08 20:50:11 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.6%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-08 20:50:11 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.8%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+

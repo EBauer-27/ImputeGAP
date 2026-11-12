@@ -1,0 +1,12 @@
+2026-11-08 20:46:24 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.05%: unsupported operand type(s) for -: 'numpy.ndarray' and 'Tensor'
+
+2026-11-08 20:46:31 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.1%: unsupported operand type(s) for -: 'numpy.ndarray' and 'Tensor'
+
+2026-11-08 20:46:37 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.2%: unsupported operand type(s) for -: 'numpy.ndarray' and 'Tensor'
+
+2026-11-08 20:46:44 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.4%: unsupported operand type(s) for -: 'numpy.ndarray' and 'Tensor'
+
+2026-11-08 20:46:50 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.6%: unsupported operand type(s) for -: 'numpy.ndarray' and 'Tensor'
+
+2026-11-08 20:46:57 | Error during benchmark for GPVAE, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.8%: unsupported operand type(s) for -: 'numpy.ndarray' and 'Tensor'
+

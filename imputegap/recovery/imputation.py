@@ -499,6 +499,43 @@ class Imputation:
 
                 return self
 
+        class TestImp(BaseImputer):
+                    """
+                    MeanImpute class to impute missing values with the mean value of the ground truth.
+        
+                    Methods
+                    -------
+                    impute(self, params=None):
+                        Perform imputation by replacing missing values with the mean value of the ground truth.
+                    """
+                    algorithm = "test_imp"
+        
+                    def impute(self, user_def=True, params=None):
+                        """
+                        Impute missing values by replacing them with the mean value of the ground truth.
+                        Template for adding external new algorithm
+        
+                        Parameters
+                        ----------
+                        params : dict, optional
+                            Dictionary of algorithm parameters (default is None).
+        
+                        Returns
+                        -------
+                        self : MinImpute
+                            The object with `recov_data` set.
+                        """
+                        from imputegap.algorithms.test_imp import test_imp
+
+                        if params is not None:
+                            mean, fix_value = self._check_params(user_def, params)  # call the optimizer
+                        else:
+                            mean, fix_value = utils.load_parameters(query="default", algorithm=self.algorithm, verbose=self.verbose)  # load the default values
+
+                        self.recov_data = test_imp(incomp_data=self.incomp_data, mean=mean, fix_value=fix_value, logs=self.logs, verbose=self.verbose)
+        
+                        return self
+
         class Test(BaseImputer):
             """
             ZeroImpute class to impute missing values with zeros.
@@ -3153,6 +3190,110 @@ class Imputation:
 
                 return self
 
+        class GPVAE(BaseImputer):
+            # TODO: fix the description
+            """
+            GPVAE class to impute missing values (Model used from the CSDI repository)
+
+            Methods
+            -------
+            impute(self, user_def=True, params=None):
+                Perform imputation using the CSDI
+
+
+            Example
+            -------
+            $ imputer.impute(params={"seq_len":-1, "batch_size":-1, "epochs": 50, "sliding_windows":1, "target_strategy":"random", "nsamples": 1, "num_workers":0})
+
+
+            Changes
+            -------
+            - Addition of a custom loader (sliding-window strategy) for univariate data from ImputeGAP, including custom train/val/test splitting.
+
+            - Addition of a custom loader (sampling strategy) for multivariate data from ImputeGAP, including custom train/val/test splitting.
+
+            - The missing values used for testing are added on top of the masks introduced by authors.
+
+            - Addition of a reconstruction module to rebuild the full original imputed matrix (sum and average the windows (windows strategy) | merge the dimensions across samples (samples strategy)).
+
+            - Computation of seq_len and batch_size based on the dataset shape.
+
+            - Reduction of the epochs parameter to 50 and the nsamples parameter to 1 for performance reasons.
+
+            """
+
+            algorithm = "gpvae"
+
+            def impute(self, user_def=True, params=None, tr_ratio=0.7):
+                """
+                Perform imputation using CSDI
+
+                Parameters
+                ----------
+                user_def : bool, optional
+                    Whether to use user-defined or default parameters (default is True).
+
+                params : dict, optional
+                    Parameters of the CSDI algorithm or Auto-ML configuration, if None, default ones are loaded.
+
+                tr_ratio: float, optional
+                    Split ratio between training and testing sets (default is 0.9).
+
+
+                    **Algorithm parameters:**
+
+                        seq_len : int, optional
+                            Length of the input sequence for the encoder. If -1, it will be automatically determined (default: -1).
+
+                        batch_size : int, optional
+                            Number of samples per batch during training/inference. If -1, it will be auto-set (default: -1).
+
+                        epochs : int, optional
+                            Number of epoch for training the model (default: 10).
+
+                        sliding_windows: int, optional
+                            Stride between consecutive training windows (default is 1). If set to 0, the window size is equal to seq_len.
+                            Use values ≥ 1 for univariate datasets (window strategy) and 0 for multivariate datasets (sample strategy).
+
+                        target_strategy: str, optional
+                            The strategy to use for targeting missing values pattern. Options include: "mix", "block", "random" (default is "mix").
+
+                        nsamples: int, optional
+                            Number of trajectories generated by the diffusion process (default: 1).
+
+                        num_workers: int, optional
+                             Number of worker for multiprocess (default is 0).
+
+
+                Returns
+                -------
+                self : CSDI
+                    CSDI object with `recov_data` set.
+
+                Example
+                -------
+                    >>> csdi_imputer = Imputation.DeepLearning.CSDI(incomp_data)
+                    >>> csdi_imputer.impute()  # default parameters for imputation > or
+                    >>> csdi_imputer.impute(user_def=True, params={"seq_len":-1, "batch_size":-1, "epochs": 50, "sliding_windows":1, "target_strategy":"random", "nsamples": 1, "num_workers":0})  # user defined> or
+                    >>> csdi_imputer.impute(user_def=False, params={"input_data": ts.data, "optimizer": "ray_tune"})  # auto-ml with ray_tune
+                    >>> recov_data = csdi_imputer.recov_data
+
+                References
+                ----------
+                Yusuke Tashiro · Jiaming Song · Yang Song · Stefano Ermon : "CSDI: Conditional Score-based Diffusion Models for Probabilistic Time Series Imputation", NeurIPS'21
+                https://github.com/ermongroup/CSDI
+                """
+
+                from imputegap.algorithms.gpvae import gpvae
+
+                if params is not None:
+                    model_type, seq_len, batch_size, epochs, sliding_windows, seed = self._check_params(user_def, params)
+                else:
+                    model_type, seq_len, batch_size, epochs, sliding_windows, seed = utils.load_parameters(query="default", algorithm=self.algorithm, verbose=self.verbose)
+
+                self.recov_data = gpvae(incomp_data=self.incomp_data, model_type=model_type, seq_len=seq_len, batch_size=batch_size, epochs=epochs, sliding_windows=sliding_windows, seed=seed, tr_ratio=tr_ratio, logs=self.logs, verbose=self.verbose)
+
+                return self
 
 
 

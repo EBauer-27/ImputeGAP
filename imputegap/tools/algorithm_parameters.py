@@ -303,8 +303,20 @@ RAYTUNE_PARAMS = {
         "sliding_windows": tune.grid_search([0, 1]),
         "n_head": tune.grid_search([4, 8]),
         "num_workers": 0
-    }
-
+    },
+    'test_imp': {
+        "mean": True,
+        "fix_value": tune.grid_search([0.0, 10.0])
+    },
+    "gpvae": {
+        "model_type": tune.grid_search(["vae", "hi-vae", "gp-vae", ]),
+        "seq_len": tune.grid_search([-1, 24]),
+        "batch_size": tune.grid_search([-1, 64]),            
+        "epochs": 10,
+        "sliding_windows": tune.grid_search([0, 1]),
+        "seed": 27
+    },
+    
     # your ray-tune limitation #contributing
     #
     #'your_algo_name': {

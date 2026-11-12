@@ -91,6 +91,11 @@ weights = "uniform"
 method = "linear"
 poly_order = 2
 
+[test_imp]
+mean = true
+fix_value = 0.0
+
+
 
 # ALGORITHM DEFAULT VALUES : DEEP LEARNING
 #[mrnn]
@@ -230,6 +235,16 @@ nsamples = 1
 num_workers = 0
 
 
+[gpvae]
+model_type = "gp-vae"
+seq_len = -1
+batch_size = -1
+epochs = 10
+sliding_windows = 1
+seed = 27
+
+
+
 # ALGORITHM DEFAULT VALUES : PLMs/LLMs
 [nuwats]
 seq_len = -1
@@ -247,8 +262,6 @@ epochs = 10
 gpt_layers = 3
 num_workers = 0
 seed = 2021
-
-
 
 
 
