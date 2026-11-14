@@ -1,0 +1,80 @@
+Report for Dataset: sportactivity
+Generated on: 2026-11-12 17:23:36
+Total runtime: 412.1131 (ms)
+Run number: -1
+========================================================================================================================
+
+
+sportactivity: {mcar, RMSE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      0.0696357329            nan         
+  0.1      0.0734002581            nan         
+  0.2      0.1380197868            nan         
+  0.4      0.3586233632            nan         
+  0.6      0.7384892479            nan         
+  0.8      1.4995870407            nan         
+
+
+
+sportactivity: {mcar, MAE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      0.0475944341            nan         
+  0.1      0.0437948067            nan         
+  0.2      0.0348828235            nan         
+  0.4      0.1027694673            nan         
+  0.6      0.2574603299            nan         
+  0.8      1.1661681106            nan         
+
+
+
+sportactivity: {mcar, MI, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.3537119848            nan         
+  0.1      1.0129201411            nan         
+  0.2      1.0005326122            nan         
+  0.4      0.8884400257            nan         
+  0.6      0.6405109048            nan         
+  0.8      0.1238390495            nan         
+
+
+
+sportactivity: {mcar, CORRELATION, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      0.9927614579            nan         
+  0.1      0.9971243031            nan         
+  0.2      0.9894626347            nan         
+  0.4      0.9361824068            nan         
+  0.6      0.7194402194            nan         
+  0.8      0.4207211626            nan         
+
+
+
+sportactivity: {mcar, RUNTIME[ms], default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05    31293.0879592896          nan         
+  0.1    27194.3721771240          nan         
+  0.2    17520.5562114716          nan         
+  0.4    17031.5287113190          nan         
+  0.6    17306.0522079468          nan         
+  0.8    34965.3172492981          nan         
+
+
+
+sportactivity: {mcar, RUNTIME_LOG, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      4.4954484208            nan         
+  0.1      4.4344790369            nan         
+  0.2      4.2435478893            nan         
+  0.4      4.2312536310            nan         
+  0.6      4.2381980095            nan         
+  0.8      4.5436374731            nan         
+
+
+Dictionary of Results:
+{'sportactivity': {'mcar': {'GPVAE': {'default_params': {'0.05': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.1': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.2': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.4': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.6': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.8': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}}}, 'GAIN': {'default_params': {'0.05': {'scores': {'RMSE': 0.06963573291683918, 'MAE': 0.04759443405768939, 'MI': 1.353711984799272, 'CORRELATION': np.float64(0.9927614578517437), 'RUNTIME': 31293.08795928955, 'RUNTIME_LOG': 4.495448420848637}}, '0.1': {'scores': {'RMSE': 0.07340025807218538, 'MAE': 0.043794806692231215, 'MI': 1.0129201411113142, 'CORRELATION': np.float64(0.9971243030762545), 'RUNTIME': 27194.372177124023, 'RUNTIME_LOG': 4.434479036927325}}, '0.2': {'scores': {'RMSE': 0.1380197868287749, 'MAE': 0.03488282348278736, 'MI': 1.0005326121568474, 'CORRELATION': np.float64(0.9894626347329247), 'RUNTIME': 17520.556211471558, 'RUNTIME_LOG': 4.24354788926006}}, '0.4': {'scores': {'RMSE': 0.3586233631701122, 'MAE': 0.10276946725775868, 'MI': 0.8884400257380425, 'CORRELATION': np.float64(0.9361824067645713), 'RUNTIME': 17031.52871131897, 'RUNTIME_LOG': 4.231253630998055}}, '0.6': {'scores': {'RMSE': 0.7384892478736615, 'MAE': 0.2574603299472921, 'MI': 0.6405109047945475, 'CORRELATION': np.float64(0.7194402193635085), 'RUNTIME': 17306.052207946777, 'RUNTIME_LOG': 4.2381980095367044}}, '0.8': {'scores': {'RMSE': 1.4995870407466498, 'MAE': 1.1661681105695079, 'MI': 0.12383904953717569, 'CORRELATION': np.float64(0.4207211625864976), 'RUNTIME': 34965.317249298096, 'RUNTIME_LOG': 4.543637473059441}}}}}}}

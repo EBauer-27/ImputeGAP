@@ -22,6 +22,7 @@ from imputegap.wrapper.AlgoPython.GPVAE.models import *
 
 #    return args
 
+# TODO: include Norm as adaptable parameter
 def recoverGPVAE(ts_m, model_type="gp-vae", seq_len=-1, batch_size=-1, epochs=100, sliding_windows=1, seed=27, tr_ratio=0.7, verbose=True):
     
     data_m = np.copy(ts_m)
@@ -75,7 +76,7 @@ def recoverGPVAE(ts_m, model_type="gp-vae", seq_len=-1, batch_size=-1, epochs=10
         print("The Dataloader for the Physiodataset is not implemented so far!")
         return ts_m
     else:
-        train_loader, valid_loader, test_loader, imp_loader, n_train = dataloader(ts_m=data_m, seq_len=seq_len, missing_ratio=config["train"]["missing_ratio"], seed=seed, sliding_windows=sliding_windows, tr_ratio=tr_ratio, batch_size=batch_size, verbose=verbose)
+        train_loader, valid_loader, test_loader, imp_loader, n_train, norm_param = dataloader(ts_m=data_m, seq_len=seq_len, missing_ratio=config["train"]["missing_ratio"], seed=seed, sliding_windows=sliding_windows, tr_ratio=tr_ratio, norm=True, batch_size=batch_size, verbose=verbose)
 
     print(len(test_loader))
 
@@ -108,7 +109,7 @@ def recoverGPVAE(ts_m, model_type="gp-vae", seq_len=-1, batch_size=-1, epochs=10
 
     train(model=model, config=config, train_loader=train_loader, n_train=n_train, valid_loader=valid_loader, verbose=verbose)
 
-    imp_matrix = evaluate(model=model, config=config, test_loader=test_loader, imp_loader=imp_loader, n_timestamps=ts_m.shape, multivariate=multivariate, verbose=verbose, sliding_windows=sliding_windows)
+    imp_matrix = evaluate(model=model, config=config, test_loader=test_loader, imp_loader=imp_loader, norm_param=norm_param, n_timestamps=ts_m.shape, multivariate=multivariate, verbose=verbose, sliding_windows=sliding_windows)
 
     #recov[m_mask] = imp_matrix[m_mask]
 

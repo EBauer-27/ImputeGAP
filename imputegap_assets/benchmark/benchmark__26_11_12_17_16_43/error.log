@@ -1,0 +1,24 @@
+2026-11-12 17:20:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.05%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:20:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.1%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:20:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.2%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:20:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.4%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:20:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.6%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:20:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.8%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:20:59 | Error during benchmark for GPVAE, with sportactivity - for a shape of (1140, 69) - (mcar/default_params), and 0.05%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:21:00 | Error during benchmark for GPVAE, with sportactivity - for a shape of (1140, 69) - (mcar/default_params), and 0.1%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:21:00 | Error during benchmark for GPVAE, with sportactivity - for a shape of (1140, 69) - (mcar/default_params), and 0.2%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:21:00 | Error during benchmark for GPVAE, with sportactivity - for a shape of (1140, 69) - (mcar/default_params), and 0.4%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:21:00 | Error during benchmark for GPVAE, with sportactivity - for a shape of (1140, 69) - (mcar/default_params), and 0.6%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+
+2026-11-12 17:21:01 | Error during benchmark for GPVAE, with sportactivity - for a shape of (1140, 69) - (mcar/default_params), and 0.8%: `tf.data.Dataset` only supports `len` in eager mode. Use `tf.data.Dataset.cardinality()` instead.
+

@@ -109,8 +109,8 @@ def normalize(data, parameters=None):
         mean = np.nanmean(norm_data, axis=0)
         std = np.nanstd(norm_data, axis=0)
 
-        norm_parameters = {"mean": mean,
-                           "std": std}
+        parameters = {"mean": mean,
+                      "std": std}
 
         # Avoid division by zero: set std_dev to 1 where it is zero
         std[std == 0] = 1
@@ -121,7 +121,7 @@ def normalize(data, parameters=None):
 
     norm_data = (norm_data - mean) / std
 
-    return norm_data, norm_parameters
+    return norm_data, parameters
 
 
 
@@ -138,6 +138,7 @@ def renormalize(norm_data, norm_parameters):
     mean = norm_parameters["mean"]
     std = norm_parameters["std"]
 
+    norm_data = np.asarray(norm_data)
     renorm_data = norm_data.copy()
 
     renorm_data = (renorm_data * std) + mean
@@ -145,7 +146,7 @@ def renormalize(norm_data, norm_parameters):
     return renorm_data
 
 # function to create a custom dataloader for imputGAP Datasets
-def dataloader(ts_m, seq_len=48, missing_ratio=0.1, seed=27, sliding_windows=1, tr_ratio=0.7, batch_size=64, verbose=True):
+def dataloader(ts_m, seq_len=48, missing_ratio=0.1, seed=27, sliding_windows=1, tr_ratio=0.7, norm=True, batch_size=64, verbose=True):
     """Function to create a custom dataloader to be able to apply the model on imputGAP Datasets.
     
     ts_m: ImputeGAP dataset with missing values
@@ -163,74 +164,80 @@ def dataloader(ts_m, seq_len=48, missing_ratio=0.1, seed=27, sliding_windows=1, 
     tf_x_test_miss: testing dataset
     tf_impute_gap: full dataset for the final imputeGAP reconstruction
     train_end: number of training windows
+    param: normalization parameter
     """
     # creates a mask for all observed values and put all nan values to 0
-    observed_values = np.array(ts_m)
-    observed_masks = ~np.isnan(observed_values)     # Missing Mask (True: value, False: missing) - no artificially introduced missingness
-    observed_values = np.nan_to_num(observed_values)    # Input Time-Series with 0.0 for nan values 
+    obs_ts = np.asarray(ts_m, dtype=np.float32)
+    obs_mask = ~np.isnan(obs_ts)     # Missing Mask (True: value, False: missing) - no artificially introduced missingness
+    obs_ts = np.nan_to_num(obs_ts)  # Input Time-Series with 0.0 for nan values 
+    T = obs_ts.shape[0]
 
-    # introduces missing values (NaNs) for training, validation, and testing
-    x_m, mask_m = ult_imp.prepare_fixed_testing_set(incomp_m=observed_values, tr_ratio=missing_ratio, block_selection=False)
-    
+    # randomly creates a missingnes mask
+    rng = np.random.default_rng(seed)
+    obs_idx = np.flatnonzero(obs_mask) 
+    miss_idx = rng.choice(obs_idx, int(len(obs_idx) * missing_ratio), replace=False)    # randomly selects idx for artificial missing values
+    mask_flat = obs_mask.flatten()
+    mask_flat[miss_idx] = False     # introduce artificial missing to Missing Mask
+    hide_mask = mask_flat.reshape(obs_mask.shape)    # 3D Missing Mask (True, False)
+
     # create train, test, validation split ratio based on the training ratio
     ts_r, val_r = ult_imp.sets_splitter_based_on_training(tr_ratio, verbose=False)
 
     # calculate train, test, validation indexes
-    total_length = x_m.shape[0]
-    gap = math.ceil(seq_len / sliding_windows)  # assert no overlapping windows
+    test_len= max(1, round(T*ts_r))
+    val_len = max(1, round(T*val_r))
+    test_start = T - test_len
+    val_start = test_start - val_len
 
-    test_length= max(1, round(total_length*ts_r))
-    valid_length = max(1, round(total_length * val_r))
+    sl_train, sl_val, sl_test = slice(0, val_start), slice(val_start, test_start), slice(test_start, T)
 
-    test_start = total_length - test_length
-    val_start = test_start - gap - valid_length
-    train_end = val_start - gap 
+    # normalize dataset
+    # get normalization parameter for train set and use this to normalize the time series to avido data leakage
+    if norm:
+        _, param = normalize(obs_ts[sl_train], None)
 
-    assert train_end > 0, f"Too less windows ({total_length}) vor seq_len={seq_len}, stride={sliding_windows}"
-    val_end = val_start + valid_length
-
-    x_train = x_m[:train_end]
-    x_valid = x_m[val_start:val_end]
-    x_test = x_m[test_start:]
-
-    # normalize datasets: get normalization parameter for train set and use this to normalize test and valid set to avido data leakage
-    x_train, norm_para = normalize(x_train, parameters=None)
-    x_valid, _ = normalize(x_valid, parameters=norm_para)
-    x_test, _ = normalize(x_test, parameters=norm_para) 
-
-    x_train = ult_imp.window_truncation(x_train, seq_len=seq_len, stride=sliding_windows, info=" |", verbose=verbose)
-    x_valid = ult_imp.window_truncation(x_valid, seq_len=seq_len, stride=sliding_windows, info=" |", verbose=verbose)
-    x_test = ult_imp.window_truncation(x_test, seq_len=seq_len, stride=sliding_windows, info=" |", verbose=verbose)
-
+        obs_ts, _ = normalize(obs_ts, param)
+        obs_ts = obs_ts.astype(np.float32)
+    else:
+        param = None
     
 
-    
-    
+    win = lambda a: ult_imp.window_truncation(a, seq_len=seq_len, stride=sliding_windows, info=" |", verbose=verbose)
 
-    # randomly creates a missingnes mask
-    #rng = np.random.default_rng(seed)
-    #flat_mask = observed_masks.flatten()    # 2D Missing Mask (True, False)
-    #obs_idx = np.where(flat_mask)[0]
-    #miss_idx = rng.choice(obs_idx, int(len(obs_idx) * missing_ratio), replace=False)    # randomly selects idx for artificial missing values
-    #flat_mask[miss_idx] = False     # introduce artificial missing to Missing Mask
-    #gt_masks = flat_mask.reshape(observed_masks.shape)      # 3D Missing Mask (True, False)
+    def split(sl):
+        """Creates the separate datasets.
+        Input: slide indices.
+        Output:
+        x_miss: Time Series with artificially missing values
+        m_miss: Missing Mask (missing values = 1)
+        x_full: Time-Series without artificually missing values (given input)
+        eval_w: Information which values are artificially hidden -> 1
+        """
+        ts_full, obs_m, hide_m = win(obs_ts[sl]), win(obs_mask[sl]), win(hide_mask[sl])
+        return ts_full * hide_m, 1.0 - hide_m, ts_full, obs_m - hide_m
 
-    # create windows based on the given sequence length 
-    # x_full: full dataset
-    # observed_w: Missing Mask without artificial missingness (0: missing, 1: value)
-    # gt_w: Missing Mask with artificial missingness (0: missing, 1: value)
-    x_full = ult_imp.window_truncation(observed_values, seq_len=seq_len, stride=sliding_windows, info=" |", verbose=verbose)
-    observed_w = ult_imp.window_truncation(observed_masks, seq_len=seq_len, stride=sliding_windows, info=" |", verbose=verbose)
-    gt_w = ult_imp.window_truncation(gt_masks, seq_len=seq_len, stride=sliding_windows, info=" |", verbose=verbose)
+    x_train, m_train, _, _ = split(sl_train)
+    x_val, m_val, _, _ = split(sl_val)
+    x_test, m_test, x_full_test, eval_w_test = split(sl_test)
 
+    x_imp, mask_imp = win(obs_ts), win(obs_mask)
 
-    
-    
-    total_length = len(x_full)
-    gap = math.ceil(seq_len / sliding_windows)  # include gap to avoide overlapping windows
+    tf_train = tf.data.Dataset.from_tensor_slices((x_train, m_train))\
+                                                  .shuffle(len(x_train))\
+                                                  .batch(batch_size, drop_remainder=True)\
+                                                  .repeat()
 
+    tf_val = tf.data.Dataset.from_tensor_slices((x_val, m_val))\
+                                                 .batch(batch_size, drop_remainder=True)\
+                                                 .repeat()
 
+    tf_test = tf.data.Dataset.from_tensor_slices((x_test, m_test, x_full_test, eval_w_test))\
+                                                 .batch(batch_size, drop_remainder=True)
 
+    tf_impute_gap = tf.data.Dataset.from_tensor_slices((x_imp, 1.0 - mask_imp))\
+                                                        .batch(batch_size, drop_remainder=True)
+
+    return tf_train, tf_val, tf_test, tf_impute_gap, len(x_train), param
 
     # normalize data
     #train_t_end = (train_end - 1) * sliding_windows + seq_len
@@ -250,31 +257,16 @@ def dataloader(ts_m, seq_len=48, missing_ratio=0.1, seed=27, sliding_windows=1, 
     #eval_w = (observed_w - gt_w).astype(np.float32)      # 1 = known but artificially hidden
 
     # apply the mask
-    x_miss = x_full * gt_w
-    m_miss = 1.0 - gt_w             # GP-VAE convention: 1 = missing
-    eval_w = observed_w - gt_w      # 1 = known but artificially hidden
+    #x_miss = x_full * gt_w
+    #m_miss = 1.0 - gt_w             # GP-VAE convention: 1 = missing
+    #eval_w = observed_w - gt_w      # 1 = known but artificially hidden
     
     # x_miss: Time-Series with artificially missing values
     # m_miss: Missing Mask (missing values = 1)
     # x_full: Time-Series without artificually missing values (given input)
     # eval_w: Information which values are artificially hidden (1)
     
-    tf_x_train_miss = tf.data.Dataset.from_tensor_slices((x_miss[:train_end], m_miss[:train_end]))\
-                                                        .shuffle(len(x_miss[:train_end]))\
-                                                        .batch(batch_size, drop_remainder=True)\
-                                                        .repeat()
 
-    tf_x_val_miss = tf.data.Dataset.from_tensor_slices((x_miss[val_start:val_end], m_miss[val_start:val_end]))\
-                                                        .batch(batch_size, drop_remainder=True)\
-                                                        .repeat()
-
-    tf_x_test_miss = tf.data.Dataset.from_tensor_slices((x_miss[test_start:], m_miss[test_start:], x_full[test_start:], eval_w[test_start:]))\
-                                                        .batch(batch_size, drop_remainder=True)
-
-    tf_impute_gap = tf.data.Dataset.from_tensor_slices((x_full, 1.0 - observed_w))\
-                                                        .batch(batch_size, drop_remainder=True)
-
-    return tf_x_train_miss, tf_x_val_miss, tf_x_test_miss, tf_impute_gap, train_end
 
 
 # TODO How to use it and plot the recoverd stuff using imputeGAP 
@@ -377,7 +369,8 @@ def train(model, config, train_loader, n_train, valid_loader, foldername="", ver
     # TODO Doesn't save so far
     # if foldername != "":
 
-def evaluate(model, config, test_loader, imp_loader=None, foldername="", n_timestamps=0, multivariate=False, verbose=True, sliding_windows=1):
+# TODO adapt the MSE Score
+def evaluate(model, config, test_loader, imp_loader=None, norm_param=None, foldername="", n_timestamps=0, multivariate=False, verbose=True, sliding_windows=1):
     """Function to evaluate the trained model and recover the given time-series"
     
 
@@ -446,5 +439,8 @@ def evaluate(model, config, test_loader, imp_loader=None, foldername="", n_times
 
     if not multivariate:
         recover = ult_imp.reconstruction_window_based(preds=recover, nbr_timestamps=n_timestamps[0], sliding_windows=sliding_windows)
+
+    if norm_param is not None:
+        recover = renormalize(recover, norm_param)
 
     return recover

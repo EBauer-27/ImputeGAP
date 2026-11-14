@@ -1,0 +1,80 @@
+Report for Dataset: meteo
+Generated on: 2026-11-12 17:23:36
+Total runtime: 412.1131 (ms)
+Run number: -1
+========================================================================================================================
+
+
+meteo: {mcar, RMSE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.3649721383            nan         
+  0.1      1.5892701242            nan         
+  0.2      1.4140588371            nan         
+  0.4     20.1705537418            nan         
+  0.6      7.5843375717            nan         
+  0.8     13.1569414494            nan         
+
+
+
+meteo: {mcar, MAE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.0099174424            nan         
+  0.1      0.9925875719            nan         
+  0.2      0.9382066214            nan         
+  0.4     13.6942200946            nan         
+  0.6      3.9359377455            nan         
+  0.8      8.7896673083            nan         
+
+
+
+meteo: {mcar, MI, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.0171294361            nan         
+  0.1      1.1699945621            nan         
+  0.2      1.2768616035            nan         
+  0.4      0.9377103745            nan         
+  0.6      0.7772430716            nan         
+  0.8      0.5827985107            nan         
+
+
+
+meteo: {mcar, CORRELATION, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      0.8947620210            nan         
+  0.1      0.9510788571            nan         
+  0.2      0.9573981406            nan         
+  0.4      0.9685649560            nan         
+  0.6      0.9824716983            nan         
+  0.8      0.9656180029            nan         
+
+
+
+meteo: {mcar, RUNTIME[ms], default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05    12841.3126468658          nan         
+  0.1    10352.5850772858          nan         
+  0.2    10445.1587200165          nan         
+  0.4    10677.3655414581          nan         
+  0.6    6698.3079910278           nan         
+  0.8    6934.5347881317           nan         
+
+
+
+meteo: {mcar, RUNTIME_LOG, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      4.1086094199            nan         
+  0.1      4.0150488082            nan         
+  0.2      4.0189150437            nan         
+  0.4      4.0284641111            nan         
+  0.6      3.8259651127            nan         
+  0.8      3.8410173312            nan         
+
+
+Dictionary of Results:
+{'meteo': {'mcar': {'GPVAE': {'default_params': {'0.05': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.1': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.2': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.4': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.6': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.8': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}}}, 'GAIN': {'default_params': {'0.05': {'scores': {'RMSE': 1.3649721382514846, 'MAE': 1.0099174423776436, 'MI': 1.0171294361042775, 'CORRELATION': np.float64(0.8947620209716027), 'RUNTIME': 12841.312646865845, 'RUNTIME_LOG': 4.108609419850654}}, '0.1': {'scores': {'RMSE': 1.5892701241723302, 'MAE': 0.992587571909491, 'MI': 1.1699945620874865, 'CORRELATION': np.float64(0.951078857129009), 'RUNTIME': 10352.585077285767, 'RUNTIME_LOG': 4.0150488082102935}}, '0.2': {'scores': {'RMSE': 1.4140588371010445, 'MAE': 0.9382066214439001, 'MI': 1.2768616034836906, 'CORRELATION': np.float64(0.9573981406058224), 'RUNTIME': 10445.15872001648, 'RUNTIME_LOG': 4.018915043713513}}, '0.4': {'scores': {'RMSE': 20.170553741751196, 'MAE': 13.694220094571603, 'MI': 0.9377103744542683, 'CORRELATION': np.float64(0.9685649559884482), 'RUNTIME': 10677.36554145813, 'RUNTIME_LOG': 4.0284641111248085}}, '0.6': {'scores': {'RMSE': 7.584337571728909, 'MAE': 3.9359377454868185, 'MI': 0.7772430716137263, 'CORRELATION': np.float64(0.9824716982820653), 'RUNTIME': 6698.307991027832, 'RUNTIME_LOG': 3.8259651127064864}}, '0.8': {'scores': {'RMSE': 13.156941449363849, 'MAE': 8.789667308252469, 'MI': 0.582798510656826, 'CORRELATION': np.float64(0.9656180029203436), 'RUNTIME': 6934.534788131714, 'RUNTIME_LOG': 3.841017331202501}}}}}}}
