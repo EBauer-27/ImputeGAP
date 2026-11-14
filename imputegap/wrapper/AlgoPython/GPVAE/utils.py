@@ -146,7 +146,7 @@ def renormalize(norm_data, norm_parameters):
     return renorm_data
 
 # function to create a custom dataloader for imputGAP Datasets
-def dataloader(ts_m, seq_len=48, missing_ratio=0.1, seed=27, sliding_windows=1, tr_ratio=0.7, norm=True, batch_size=64, verbose=True):
+def dataloader(ts_m, config, seq_len=48, seed=27, sliding_windows=1, tr_ratio=0.7, norm=True, verbose=True):
     """Function to create a custom dataloader to be able to apply the model on imputGAP Datasets.
     
     ts_m: ImputeGAP dataset with missing values
@@ -175,10 +175,15 @@ def dataloader(ts_m, seq_len=48, missing_ratio=0.1, seed=27, sliding_windows=1, 
     # randomly creates a missingnes mask
     rng = np.random.default_rng(seed)
     obs_idx = np.flatnonzero(obs_mask) 
-    miss_idx = rng.choice(obs_idx, int(len(obs_idx) * missing_ratio), replace=False)    # randomly selects idx for artificial missing values
+    miss_idx = rng.choice(obs_idx, int(obs_idx.shape[0] * config['train']['missing_ratio']), replace=False)    # randomly selects idx for artificial missing values
     mask_flat = obs_mask.flatten()
     mask_flat[miss_idx] = False     # introduce artificial missing to Missing Mask
     hide_mask = mask_flat.reshape(obs_mask.shape)    # 3D Missing Mask (True, False)
+
+    # calculate the missinges ratio in the TS (initial missingnes + artificial missingnes) to determine beta
+    # Paper: "We thus choose β in our experiments dependent on the missingness rate to counteract this effect (ß rebalances the influence of the likelihood term and the KL term on the ELBO)" 
+    ts_nan = np.where(hide_mask, obs_ts, np.nan)    # fill all values that are missing with nan 
+    config['model']['beta'] = ult_imp.get_missing_ratio(ts_nan) 
 
     # create train, test, validation split ratio based on the training ratio
     ts_r, val_r = ult_imp.sets_splitter_based_on_training(tr_ratio, verbose=False)
@@ -223,21 +228,22 @@ def dataloader(ts_m, seq_len=48, missing_ratio=0.1, seed=27, sliding_windows=1, 
     x_imp, mask_imp = win(obs_ts), win(obs_mask)
 
     tf_train = tf.data.Dataset.from_tensor_slices((x_train, m_train))\
-                                                  .shuffle(len(x_train))\
-                                                  .batch(batch_size, drop_remainder=True)\
+                                                  .shuffle(x_train.shape[0])\
+                                                  .batch(config['train']['batch_size'], drop_remainder=True)\
                                                   .repeat()
 
     tf_val = tf.data.Dataset.from_tensor_slices((x_val, m_val))\
-                                                 .batch(batch_size, drop_remainder=True)\
+                                                 .batch(config['train']['batch_size'], drop_remainder=True)\
                                                  .repeat()
 
     tf_test = tf.data.Dataset.from_tensor_slices((x_test, m_test, x_full_test, eval_w_test))\
-                                                 .batch(batch_size, drop_remainder=True)
+                                                 .batch(config['train']['batch_size'], drop_remainder=True)
 
     tf_impute_gap = tf.data.Dataset.from_tensor_slices((x_imp, 1.0 - mask_imp))\
-                                                        .batch(batch_size, drop_remainder=True)
+                                                        .batch(config['train']['batch_size'], drop_remainder=True)
 
-    return tf_train, tf_val, tf_test, tf_impute_gap, len(x_train), param
+
+    return tf_train, tf_val, tf_test, tf_impute_gap, x_train.shape[0], param
 
     # normalize data
     #train_t_end = (train_end - 1) * sliding_windows + seq_len
@@ -322,7 +328,6 @@ def train(model, config, train_loader, n_train, valid_loader, foldername="", ver
 
     trainable_vars = model.get_trainable_vars()
     optimizer = tf_keras.optimizers.Adam(learning_rate=float(config["train"]["learning_rate"])) 
-    print(float(config["train"]["learning_rate"]))
      
     if verbose:
         print("Encoder: ", model.encoder.net.summary())

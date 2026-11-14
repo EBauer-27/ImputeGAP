@@ -10,6 +10,7 @@ model:
   encoder_sizes: [128, 128]
   decoder_sizes: [256, 256]
   beta: 0.2
+  sigma: 1.0
   cnn_kernel_size: 3
   cnn_size: [256]
   M: 1

@@ -1,0 +1,29 @@
+- check the dataloader function and if it really creates batches
+
+- fix imputeGAP benchmark -> it only works when I run GPVAE first; otherwise: len is not well defined for a symbolic Tensor (concat_14/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+                          -> SAITS Doesn't run (most likely library problem)
+                          -> all pytorch alogrithms don't run anymore once I ran GPVAE
+
+- enable stop even during training
+
+- add descriptions to all functions
+
+- adapt MSE Score (so far it only counts on the recovered data -> often very small) -> maybe also add MSE without the miss (recovered vs. original without the miss)
+
+- Tests for the Report:
+    -
+------------------------------------------
+
+- try to implement physionet as a dataloader and a way to test it with imputeGAP 
+    - adapt multivariante in parameter settings
+
+- implement that you can also test the other VAE variants
+
+- implement saving
+
+- search for early stopping in training -> enlarge the epoch size 
+
+- think about implementing tensorboard (check SAINT)
+
+- verify if its nesseccary to optimize window_size
+

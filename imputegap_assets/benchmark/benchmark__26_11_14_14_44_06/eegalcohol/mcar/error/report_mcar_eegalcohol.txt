@@ -1,0 +1,56 @@
+Report for Dataset: eegalcohol
+Generated on: 2026-11-14 14:44:10
+Total runtime: 4.8295 (ms)
+Run number: -1
+========================================================================================================================
+
+
+eegalcohol: {mcar, RMSE, default_params}
+ Rate          TRMF        
+
+ 0.05      2.2859942174    
+  0.1      1.8564364520    
+
+
+
+eegalcohol: {mcar, MAE, default_params}
+ Rate          TRMF        
+
+ 0.05      1.7538817613    
+  0.1      1.4444035888    
+
+
+
+eegalcohol: {mcar, MI, default_params}
+ Rate          TRMF        
+
+ 0.05      1.1828167162    
+  0.1      1.0633981010    
+
+
+
+eegalcohol: {mcar, CORRELATION, default_params}
+ Rate          TRMF        
+
+ 0.05      0.8513930758    
+  0.1      0.9385981539    
+
+
+
+eegalcohol: {mcar, RUNTIME[ms], default_params}
+ Rate          TRMF        
+
+ 0.05     884.1009140015   
+  0.1     783.0636501312   
+
+
+
+eegalcohol: {mcar, RUNTIME_LOG, default_params}
+ Rate          TRMF        
+
+ 0.05      2.9465018396    
+  0.1      2.8937970645    
+
+
+Dictionary of Results:
+{'eegalcohol': {'mcar': {'TRMF': {'default_params': {'0.05': {'scores': {'RMSE': 2.285994217405088, 'MAE': 1.7538817612576345, 'MI': 1.1828167162116252, 'CORRELATION': np.float64(0.8513930758319056), 'RUNTIME': 884.1009140014648, 'RUNTIME_LOG': 2.9465018395522677}}, '0.1': {'scores': {'RMSE': 1.8564364520241847, 'MAE': 1.4444035888055209, 'MI': 1.0633981009847406, 'CORRELATION': np.float64(0.9385981539053584), 'RUNTIME': 783.0636501312256, 'RUNTIME_LOG': 2.8937970644554887}}}}}}}

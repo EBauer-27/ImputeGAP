@@ -1,0 +1,54 @@
+Generated on: 2026-11-14 14:29:47
+Total runtime: 1.7019 (ms)
+========================================================================================================================
+
+{mcar, RMSE, default_params}
+------------------------------------------
+   Dataset      Rate         SAITS        
+------------------------------------------
+  eegalcohol    0.05          nan         
+  eegalcohol    0.1           nan         
+------------------------------------------
+
+{mcar, MAE, default_params}
+------------------------------------------
+   Dataset      Rate         SAITS        
+------------------------------------------
+  eegalcohol    0.05          nan         
+  eegalcohol    0.1           nan         
+------------------------------------------
+
+{mcar, MI, default_params}
+------------------------------------------
+   Dataset      Rate         SAITS        
+------------------------------------------
+  eegalcohol    0.05          nan         
+  eegalcohol    0.1           nan         
+------------------------------------------
+
+{mcar, CORRELATION, default_params}
+------------------------------------------
+   Dataset      Rate         SAITS        
+------------------------------------------
+  eegalcohol    0.05          nan         
+  eegalcohol    0.1           nan         
+------------------------------------------
+
+{mcar, RUNTIME[ms], default_params}
+------------------------------------------
+   Dataset      Rate         SAITS        
+------------------------------------------
+  eegalcohol    0.05          nan         
+  eegalcohol    0.1           nan         
+------------------------------------------
+
+{mcar, RUNTIME_LOG, default_params}
+------------------------------------------
+   Dataset      Rate         SAITS        
+------------------------------------------
+  eegalcohol    0.05          nan         
+  eegalcohol    0.1           nan         
+------------------------------------------
+
+Dictionary of Results:
+[{'eegalcohol': {'mcar': {'SAITS': {'default_params': {'0.05': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.1': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}}}}}}]

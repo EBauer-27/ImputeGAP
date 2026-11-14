@@ -239,9 +239,11 @@ num_workers = 0
 model_type = "gp-vae"
 seq_len = -1
 batch_size = -1
-epochs = 10
+epochs = 40
+length_scale = 2.0
+window_size = -1
 sliding_windows = 1
-seed = 27
+norm = true
 
 
 

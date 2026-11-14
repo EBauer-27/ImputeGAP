@@ -1,0 +1,56 @@
+Report for Dataset: eegalcohol
+Generated on: 2026-11-14 14:41:38
+Total runtime: 41.1784 (ms)
+Run number: -1
+========================================================================================================================
+
+
+eegalcohol: {mcar, RMSE, default_params}
+ Rate          MPIN        
+
+ 0.05      4.4720137806    
+  0.1      7.3321220482    
+
+
+
+eegalcohol: {mcar, MAE, default_params}
+ Rate          MPIN        
+
+ 0.05      3.7360835306    
+  0.1      6.0128769871    
+
+
+
+eegalcohol: {mcar, MI, default_params}
+ Rate          MPIN        
+
+ 0.05      1.1073612962    
+  0.1      0.9421031839    
+
+
+
+eegalcohol: {mcar, CORRELATION, default_params}
+ Rate          MPIN        
+
+ 0.05      0.8538416543    
+  0.1      0.9165191967    
+
+
+
+eegalcohol: {mcar, RUNTIME[ms], default_params}
+ Rate          MPIN        
+
+ 0.05    21332.0608139038  
+  0.1    17588.1638526917  
+
+
+
+eegalcohol: {mcar, RUNTIME_LOG, default_params}
+ Rate          MPIN        
+
+ 0.05      4.3290328131    
+  0.1      4.2452205029    
+
+
+Dictionary of Results:
+{'eegalcohol': {'mcar': {'MPIN': {'default_params': {'0.05': {'scores': {'RMSE': 4.472013780592013, 'MAE': 3.7360835306327784, 'MI': 1.1073612961833217, 'CORRELATION': np.float64(0.8538416542551588), 'RUNTIME': 21332.06081390381, 'RUNTIME_LOG': 4.3290328131087765}}, '0.1': {'scores': {'RMSE': 7.332122048194019, 'MAE': 6.0128769871356225, 'MI': 0.9421031839367613, 'CORRELATION': np.float64(0.9165191967186386), 'RUNTIME': 17588.16385269165, 'RUNTIME_LOG': 4.24522050288742}}}}}}}

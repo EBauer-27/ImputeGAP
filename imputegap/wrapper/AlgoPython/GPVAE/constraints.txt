@@ -1,9 +1,10 @@
-absl-py==2.5.1
-numpy==2.4.6
-scipy==1.17.1
-tensorflow==2.21.0
+# extra libraries needed to run recoverGPVAE
+#absl-py==2.5.1
+#numpy==2.4.6
+#scipy==1.17.1
+#tensorflow==2.21.0 
 tensorflow_probability==0.25.0
-#'tensorflow[and-cuda]'
+#'tensorflow[and-cuda]' -> most likely cause problem when benchmarking with pytorch algorithms; but not needed when only working with time series data
 tf_keras==2.21
-matplotlib==3.11.2
-scikit-learn==1.9.1
+#matplotlib==3.11.2
+#scikit-learn==1.9.1

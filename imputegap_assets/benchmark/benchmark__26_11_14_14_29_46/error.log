@@ -1,0 +1,4 @@
+2026-11-14 14:29:46 | Error during benchmark for SAITS, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.05%: No module named 'tensorboard'
+
+2026-11-14 14:29:46 | Error during benchmark for SAITS, with eegalcohol - for a shape of (256, 64) - (mcar/default_params), and 0.1%: No module named 'tensorboard'
+

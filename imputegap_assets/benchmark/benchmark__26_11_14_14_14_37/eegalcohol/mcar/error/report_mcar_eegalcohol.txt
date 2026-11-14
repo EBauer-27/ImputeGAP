@@ -1,0 +1,56 @@
+Report for Dataset: eegalcohol
+Generated on: 2026-11-14 14:15:24
+Total runtime: 47.2138 (ms)
+Run number: -1
+========================================================================================================================
+
+
+eegalcohol: {mcar, RMSE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.6101860590            nan         
+  0.1      2.1795234235            nan         
+
+
+
+eegalcohol: {mcar, MAE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.3032218941            nan         
+  0.1      1.6867574865            nan         
+
+
+
+eegalcohol: {mcar, MI, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.3811407402            nan         
+  0.1      0.9362428796            nan         
+
+
+
+eegalcohol: {mcar, CORRELATION, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      0.9550396529            nan         
+  0.1      0.9228901667            nan         
+
+
+
+eegalcohol: {mcar, RUNTIME[ms], default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05    21928.4422397614          nan         
+  0.1    22948.4474658966          nan         
+
+
+
+eegalcohol: {mcar, RUNTIME_LOG, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      4.3410077812            nan         
+  0.1      4.3607533095            nan         
+
+
+Dictionary of Results:
+{'eegalcohol': {'mcar': {'GAIN': {'default_params': {'0.05': {'scores': {'RMSE': 1.6101860590173926, 'MAE': 1.303221894125637, 'MI': 1.3811407402375928, 'CORRELATION': np.float64(0.9550396528537048), 'RUNTIME': 21928.442239761353, 'RUNTIME_LOG': 4.341007781212184}}, '0.1': {'scores': {'RMSE': 2.1795234235262644, 'MAE': 1.6867574865211128, 'MI': 0.9362428796374771, 'CORRELATION': np.float64(0.9228901667006508), 'RUNTIME': 22948.447465896606, 'RUNTIME_LOG': 4.360753309489779}}}}, 'GPVAE': {'default_params': {'0.05': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.1': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}}}}}}

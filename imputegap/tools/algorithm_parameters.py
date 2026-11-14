@@ -309,14 +309,16 @@ RAYTUNE_PARAMS = {
         "fix_value": tune.grid_search([0.0, 10.0])
     },
     "gpvae": {
-        "model_type": tune.grid_search(["vae", "hi-vae", "gp-vae", ]),
-        "seq_len": tune.grid_search([-1, 24]),
-        "batch_size": tune.grid_search([-1, 64]),            
-        "epochs": 10,
-        "sliding_windows": tune.grid_search([0, 1]),
-        "seed": 27
-    },
-    
+        "model_type": "gp-vae", # TODO: only works with "gp-vae" so far -> ["vae", "hi-vae", "gp-vae"]
+        "seq_len": tune.grid_search([-1, 16, 48]),
+        "batch_size": tune.grid_search([-1, 16, 32]),            
+        "epochs": 40,
+        "length_scale": tune.grid_search([2.0, 4.0, 7.0]),
+        "window_size": -1, # TODO check if grid search would make sence
+        "sliding_windows": 1, # TODO if multivariate Datasets (Physionet) is also implemented, try: tune.grid_search([0, 1]) -> if 0: multivariate = True
+        "norm": True
+    }
+
     # your ray-tune limitation #contributing
     #
     #'your_algo_name': {

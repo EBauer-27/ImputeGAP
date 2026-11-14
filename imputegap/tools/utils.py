@@ -457,9 +457,11 @@ def load_parameters(query: str = "default", algorithm: str = "cdrec", dataset: s
             seq_len = int(config[algorithm]['seq_len'])
             batch_size = int(config[algorithm]['batch_size'])
             epochs = int(config[algorithm]['epochs'])
+            length_scale = float(config[algorithm]['length_scale'])
+            window_size = int(config[algorithm]['window_size'])
             sliding_windows = int(config[algorithm]['sliding_windows'])
-            seed = int(config[algorithm]['seed'])
-            return (model_type, seq_len, batch_size, epochs, sliding_windows, seed)
+            norm = bool(config[algorithm]['norm'])
+            return (model_type, seq_len, batch_size, epochs, length_scale, window_size, sliding_windows, norm)
     elif algorithm == "other":
         return config
 
@@ -895,8 +897,10 @@ def save_optimization(optimal_params, algorithm="cdrec", dataset="", optimizer="
             "seq_len": int(optimal_params[1]),
             "batch_size": float(optimal_params[2]),
             "epochs": int(optimal_params[3]),
-            "sliding_windows": int(optimal_params[4]),
-            "seed": int(optimal_params[5])
+            "length_scale": float(optimal_params[4]),
+            "window_size": int(optimal_params[5]),
+            "sliding_windows": int(optimal_params[6]),
+            "norm": bool(optimal_params[7])
         }
 
     # Your own optimal save parameters #contributing

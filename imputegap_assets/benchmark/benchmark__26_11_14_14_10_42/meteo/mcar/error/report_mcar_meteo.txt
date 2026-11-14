@@ -1,0 +1,56 @@
+Report for Dataset: meteo
+Generated on: 2026-11-14 14:11:01
+Total runtime: 18.85 (ms)
+Run number: -1
+========================================================================================================================
+
+
+meteo: {mcar, RMSE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.4863851092            nan         
+  0.1      1.7871073922            nan         
+
+
+
+meteo: {mcar, MAE, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.0803462026            nan         
+  0.1      1.4038446673            nan         
+
+
+
+meteo: {mcar, MI, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      1.0081883710            nan         
+  0.1      1.2419419898            nan         
+
+
+
+meteo: {mcar, CORRELATION, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      0.8647392497            nan         
+  0.1      0.9549940048            nan         
+
+
+
+meteo: {mcar, RUNTIME[ms], default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05    11327.4900913239          nan         
+  0.1    5785.0186824799           nan         
+
+
+
+meteo: {mcar, RUNTIME_LOG, default_params}
+ Rate          GAIN               GPVAE        
+
+ 0.05      4.0541336910            nan         
+  0.1      3.7623047658            nan         
+
+
+Dictionary of Results:
+{'meteo': {'mcar': {'GAIN': {'default_params': {'0.05': {'scores': {'RMSE': 1.4863851091787568, 'MAE': 1.0803462025934853, 'MI': 1.008188371010235, 'CORRELATION': np.float64(0.8647392497244014), 'RUNTIME': 11327.490091323853, 'RUNTIME_LOG': 4.054133690954048}}, '0.1': {'scores': {'RMSE': 1.7871073922029939, 'MAE': 1.4038446672854576, 'MI': 1.2419419898154727, 'CORRELATION': np.float64(0.9549940047978086), 'RUNTIME': 5785.018682479858, 'RUNTIME_LOG': 3.762304765826197}}}}, 'GPVAE': {'default_params': {'0.05': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}, '0.1': {'scores': {'RMSE': nan, 'MAE': nan, 'MI': nan, 'CORRELATION': nan, 'RUNTIME': nan, 'RUNTIME_LOG': nan}}}}}}}

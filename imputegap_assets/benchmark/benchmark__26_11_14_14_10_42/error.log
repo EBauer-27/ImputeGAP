@@ -1,0 +1,4 @@
+2026-11-14 14:11:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.05%: len is not well defined for a symbolic Tensor (concat_8/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
+2026-11-14 14:11:00 | Error during benchmark for GPVAE, with meteo - for a shape of (2000, 4) - (mcar/default_params), and 0.1%: len is not well defined for a symbolic Tensor (concat_9/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
