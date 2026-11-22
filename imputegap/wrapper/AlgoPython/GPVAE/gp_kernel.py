@@ -43,7 +43,7 @@ def cauchy_kernel(T, sigma, length_scale):
     distance_matrix = tf.math.squared_difference(xs_in, xs_out)
     distance_matrix_scaled = distance_matrix / length_scale ** 2
     kernel_matrix = tf.math.divide(sigma, (distance_matrix_scaled + 1.))
-
+    
     alpha = 0.001
     eye = tf.eye(num_rows=kernel_matrix.shape.as_list()[-1])
     return kernel_matrix + alpha * eye

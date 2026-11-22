@@ -80,7 +80,7 @@ class BandedJointEncoder(tf_keras.Model):
         self.data_type = data_type
 
     def __call__(self, x):
-        mapped = self.net(x)
+        mapped = self.net(x)    # [batch, time steps, features]
 
         batch_size = mapped.shape.as_list()[0]
         time_length = mapped.shape.as_list()[1]
@@ -88,7 +88,7 @@ class BandedJointEncoder(tf_keras.Model):
         # Obtain mean and precision matrix components
         num_dim = len(mapped.shape.as_list())
         perm = list(range(num_dim - 2)) + [num_dim - 1, num_dim - 2]
-        mapped_transposed = tf.transpose(mapped, perm=perm)
+        mapped_transposed = tf.transpose(mapped, perm=perm)     # [batch, features, time steps]
         mapped_mean = mapped_transposed[:, :self.z_size]
         mapped_covar = mapped_transposed[:, self.z_size:]
 
@@ -101,10 +101,10 @@ class BandedJointEncoder(tf_keras.Model):
         mapped_reshaped = tf.reshape(mapped_covar, [batch_size, self.z_size, 2*time_length])
 
         dense_shape = [batch_size, self.z_size, time_length, time_length]
-        idxs_1 = np.repeat(np.arange(batch_size), self.z_size*(2*time_length-1))
-        idxs_2 = np.tile(np.repeat(np.arange(self.z_size), (2*time_length-1)), batch_size)
-        idxs_3 = np.tile(np.concatenate([np.arange(time_length), np.arange(time_length-1)]), batch_size*self.z_size)
-        idxs_4 = np.tile(np.concatenate([np.arange(time_length), np.arange(1,time_length)]), batch_size*self.z_size)
+        idxs_1 = np.repeat(np.arange(batch_size), self.z_size*(2*time_length-1))    
+        idxs_2 = np.tile(np.repeat(np.arange(self.z_size), (2*time_length-1)), batch_size)  
+        idxs_3 = np.tile(np.concatenate([np.arange(time_length), np.arange(time_length-1)]), batch_size*self.z_size)  
+        idxs_4 = np.tile(np.concatenate([np.arange(time_length), np.arange(1,time_length)]), batch_size*self.z_size)    
         idxs_all = np.stack([idxs_1, idxs_2, idxs_3, idxs_4], axis=1)
 
         # ~10x times faster on CPU then on GPU
@@ -281,7 +281,7 @@ class VAE(tf_keras.Model):
         qz_x = self.encode(x)
         z = qz_x.sample()
         px_z = self.decode(z)
-
+        
         nll = -px_z.log_prob(x)  # shape=(M*K*BS, TL, D)
         nll = tf.where(tf.math.is_finite(nll), nll, tf.zeros_like(nll))
         if m_mask is not None:
@@ -358,7 +358,7 @@ class GP_VAE(HI_VAE):
     def decode(self, z):
         num_dim = len(z.shape)
         assert num_dim > 2
-        perm = list(range(num_dim - 2)) + [num_dim - 1, num_dim - 2]
+        perm = list(range(num_dim - 2)) + [num_dim - 1, num_dim - 2]    
         return self.decoder(tf.transpose(z, perm=perm))
 
     def _get_prior(self):

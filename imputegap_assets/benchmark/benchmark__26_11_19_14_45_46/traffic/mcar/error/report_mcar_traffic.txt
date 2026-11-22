@@ -1,0 +1,56 @@
+Report for Dataset: traffic
+Generated on: 2026-11-19 14:53:20
+Total runtime: 453.6601 (ms)
+Run number: -1
+========================================================================================================================
+
+
+traffic: {mcar, RMSE, default_params}
+ Rate          GAIN               GPVAE             MeanImpute     
+
+ 0.05      0.0426455219        0.0378970086        0.0635571856    
+  0.1      0.0416751480        0.0348525221        0.0621923021    
+
+
+
+traffic: {mcar, MAE, default_params}
+ Rate          GAIN               GPVAE             MeanImpute     
+
+ 0.05      0.0172322148        0.0136050232        0.0375628372    
+  0.1      0.0220843739        0.0167887253        0.0401737929    
+
+
+
+traffic: {mcar, MI, default_params}
+ Rate          GAIN               GPVAE             MeanImpute     
+
+ 0.05      0.8289378921        0.9110896157        0.0000000000    
+  0.1      0.7728991675        0.7977450375        0.0000000000    
+
+
+
+traffic: {mcar, CORRELATION, default_params}
+ Rate          GAIN               GPVAE             MeanImpute     
+
+ 0.05      0.8213708494        0.8794048966            nan         
+  0.1      0.7737047282        0.8582065480            nan         
+
+
+
+traffic: {mcar, RUNTIME[ms], default_params}
+ Rate          GAIN               GPVAE             MeanImpute     
+
+ 0.05    9215.3325080872    218557.2910308838      3.3762454987    
+  0.1    8803.1852245331    214352.4072170258      1.0000000000    
+
+
+
+traffic: {mcar, RUNTIME_LOG, default_params}
+ Rate          GAIN               GPVAE             MeanImpute     
+
+ 0.05      3.9645110101        5.3395652991        0.5284340182    
+  0.1      3.9446398398        5.3311283651        0.0000000000    
+
+
+Dictionary of Results:
+{'traffic': {'mcar': {'GPVAE': {'default_params': {'0.05': {'scores': {'RMSE': 0.03789700855254007, 'MAE': 0.013605023169785735, 'MI': 0.9110896156664351, 'CORRELATION': np.float64(0.8794048965700095), 'RUNTIME': 218557.2910308838, 'RUNTIME_LOG': 5.339565299051082}}, '0.1': {'scores': {'RMSE': 0.03485252211078251, 'MAE': 0.016788725252047183, 'MI': 0.7977450375040643, 'CORRELATION': np.float64(0.858206547978021), 'RUNTIME': 214352.40721702576, 'RUNTIME_LOG': 5.331128365081085}}}}, 'MeanImpute': {'default_params': {'0.05': {'scores': {'RMSE': 0.06355718558575632, 'MAE': 0.03756283719298245, 'MI': 0.0, 'CORRELATION': nan, 'RUNTIME': 3.3762454986572266, 'RUNTIME_LOG': 0.5284340181774752}}, '0.1': {'scores': {'RMSE': 0.06219230209287664, 'MAE': 0.040173792916666666, 'MI': 0.0, 'CORRELATION': nan, 'RUNTIME': 1.0, 'RUNTIME_LOG': 0.0}}}}, 'GAIN': {'default_params': {'0.05': {'scores': {'RMSE': 0.04264552191208854, 'MAE': 0.017232214776309495, 'MI': 0.8289378921341346, 'CORRELATION': np.float64(0.8213708493838018), 'RUNTIME': 9215.332508087158, 'RUNTIME_LOG': 3.9645110100729624}}, '0.1': {'scores': {'RMSE': 0.0416751480225797, 'MAE': 0.02208437392401197, 'MI': 0.7728991674567227, 'CORRELATION': np.float64(0.7737047281694425), 'RUNTIME': 8803.185224533081, 'RUNTIME_LOG': 3.9446398397804345}}}}}}}

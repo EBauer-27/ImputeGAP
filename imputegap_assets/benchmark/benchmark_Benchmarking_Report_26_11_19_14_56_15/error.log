@@ -1,0 +1,12 @@
+2026-11-19 15:01:23 | Error during benchmark for GPVAE, with traffic - for a shape of (2000, 20) - (mcar/default_params), and 0.05%: len is not well defined for a symbolic Tensor (concat_40/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
+2026-11-19 15:01:23 | Error during benchmark for GPVAE, with traffic - for a shape of (2000, 20) - (mcar/default_params), and 0.1%: len is not well defined for a symbolic Tensor (concat_41/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
+2026-11-19 15:01:23 | Error during benchmark for GPVAE, with traffic - for a shape of (2000, 20) - (mcar/default_params), and 0.2%: len is not well defined for a symbolic Tensor (concat_42/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
+2026-11-19 15:01:23 | Error during benchmark for GPVAE, with traffic - for a shape of (2000, 20) - (mcar/default_params), and 0.4%: len is not well defined for a symbolic Tensor (concat_43/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
+2026-11-19 15:01:24 | Error during benchmark for GPVAE, with traffic - for a shape of (2000, 20) - (mcar/default_params), and 0.6%: len is not well defined for a symbolic Tensor (concat_44/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
+2026-11-19 15:01:24 | Error during benchmark for GPVAE, with traffic - for a shape of (2000, 20) - (mcar/default_params), and 0.8%: len is not well defined for a symbolic Tensor (concat_45/concat:0). Please call `x.shape` rather than `len(x)` for shape information.
+
